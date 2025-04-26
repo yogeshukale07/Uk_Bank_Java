@@ -77,7 +77,7 @@
 				<version>3.4.5</version>
 				<configuration>
 					<to>
-						<image>yukale/configserver:s1</image>
+						<image>yukale/configserver:s2</image>
 					</to>
 				</configuration>
 			</plugin>
