@@ -29,22 +29,22 @@ services:
       file: common-config.yml
       service: microservice-db-config
 
-  rabbit:
-    image: rabbitmq
-    hostname: rabbitmq
-    ports: 
-      - "5672:5672"
-      - "15672:15672"
-    
-    healthcheck:
-      test: rabbitmq-dignostic check_port_connectivity
-      interval: 10s
-      timeout: 5s
-      retries: 10
-      start_period: 5s
-    extends:
-      file: common-config.yml
-      service: network-deploy-service
+#  rabbit:
+#    image: rabbitmq
+#    hostname: rabbitmq
+#    ports:
+#      - "5672:5672"
+#      - "15672:15672"
+#
+#    healthcheck:
+#      test: rabbitmq-dignostic check_port_connectivity
+#      interval: 10s
+#      timeout: 5s
+#      retries: 10
+#      start_period: 5s
+#    extends:
+#      file: common-config.yml
+#      service: network-deploy-service
 
   configserver:
     image: "yukale/configserver:s2"
