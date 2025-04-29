@@ -10,8 +10,12 @@ import java.util.Optional;
 
 @Repository
 public interface AccountsRepository extends JpaRepository<Accounts,Long> {
-    Optional<Accounts> findByCustomerId(Long aLong);
+    Optional<Accounts> findByCustomerId(Long id);
+
+
     @Transactional
     @Modifying
     void deleteByCustomerId(Long customerId);
+    @Override
+    Accounts save(Accounts accounts);
 }

@@ -13,6 +13,7 @@ import com.example.accounts.repository.AccountsRepository;
 import com.example.accounts.repository.CustomerRepository;
 import com.example.accounts.service.IAccountsService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -23,10 +24,10 @@ import java.util.Random;
 @AllArgsConstructor
 public class AccountsServiceImpl implements IAccountsService {
 
-    //@Autowired
+    @Autowired
     AccountsRepository accountsRepository;
 
-    //@Autowired
+    @Autowired
     CustomerRepository customerRepository;
 
     @Override
@@ -38,7 +39,7 @@ public class AccountsServiceImpl implements IAccountsService {
         }
         customer.setCreatedAt(LocalDateTime.now());
         customer.setCreatedBy("AnonymusUser");
-        Customer savedCustomver = customerRepository.save(customer);
+        Customer savedCustomver = customerRepository.saveAndFlush(customer);
         accountsRepository.save(createNewAccounts(savedCustomver));
     }
     private Accounts createNewAccounts(Customer customer) {
@@ -74,7 +75,7 @@ public class AccountsServiceImpl implements IAccountsService {
             AccountsMapper.mapToAccounts(accountsDto, accounts);
 
 
-            Customer customer = customerRepository.findByMobileNumber(accounts.getMobileNumber()).orElseThrow(()-> new ResourceNotFoundException("Customer", "MobileNumber", customerDto.getMobileNumber()));
+            Customer customer = customerRepository.findById(accounts.getCustomerId()).orElseThrow(()-> new ResourceNotFoundException("Customer", "MobileNumber", customerDto.getMobileNumber()));
             CustomerMapper.mapToCustomer(customerDto, customer);
             customerRepository.save(customer);
             accountsRepository.save(accounts);
